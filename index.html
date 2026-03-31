@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Behavioral Score Diffusion: Model-Free Trajectory Planning via Kernel-Based Score Estimation from Data">
+  <meta name="keywords" content="Diffusion Planning, Data-Driven Control, Kernel Score Estimation, Trajectory Optimization, Model-Free">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Behavioral Score Diffusion</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- HERO: Title, Authors, Links                                   -->
+<!-- ============================================================ -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Behavioral Score Diffusion:<br>Model-Free Trajectory Planning via Kernel-Based Score Estimation from Data</h1>
+          <div class="is-size-5 publication-authors">
+            <!-- Authors: replace with actual names and links -->
+            <span class="author-block">
+              Anonymous Authors</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block publication-venue">CDC 2026 (under review)</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- arXiv Link -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TEASER: Method Overview                                        -->
+<!-- ============================================================ -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/figures/fig_overview.png" alt="BSD method overview" style="width:100%; border-radius: 10px;">
+      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+        <span class="bsd">BSD</span> computes diffusion score functions directly from trajectory data
+        via kernel-weighted estimation&mdash;no dynamics model, no neural network training.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ABSTRACT                                                      -->
+<!-- ============================================================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Diffusion-based trajectory optimization has emerged as a powerful planning paradigm, but existing methods require either learned score networks trained on large datasets or analytical dynamics models for score computation. We introduce <span class="bsd">Behavioral Score Diffusion</span> (BSD), a training-free and model-free trajectory planner that computes the diffusion score function directly from a library of trajectory data via kernel-weighted estimation.
+          </p>
+          <p>
+            At each denoising step, BSD retrieves relevant trajectories using a triple-kernel weighting scheme&mdash;diffusion proximity, state context, and goal relevance&mdash;and computes a Nadaraya-Watson estimate of the denoised trajectory. The diffusion noise schedule naturally controls kernel bandwidths, creating a multi-scale nonparametric regression: broad averaging of global behavioral patterns at high noise, fine-grained local interpolation at low noise. Safety is preserved by applying shielded rollout on kernel-estimated state trajectories.
+          </p>
+          <p>
+            We prove pointwise consistency of the kernel score estimate for arbitrary continuous dynamics, characterize its MSE rate, and establish formal equivalence to regularized DeePC for LTI systems. Empirically, BSD achieves <strong>98.5%</strong> of the model-based baseline's average reward across four robotic systems (3D&ndash;6D state spaces) using only 1,000 pre-collected trajectories, and substantially outperforms nearest-neighbor retrieval (18&ndash;63% improvement).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- KEY RESULTS                                                   -->
+<!-- ============================================================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="key-result">
+      <div class="columns is-mobile is-multiline">
+        <div class="column is-3-desktop is-6-mobile metric-card">
+          <div class="metric-value">98.5%</div>
+          <div class="metric-label">of model-based reward<br>(no dynamics model needed)</div>
+        </div>
+        <div class="column is-3-desktop is-6-mobile metric-card">
+          <div class="metric-value">0</div>
+          <div class="metric-label">training required<br>(training-free)</div>
+        </div>
+        <div class="column is-3-desktop is-6-mobile metric-card">
+          <div class="metric-value">18&ndash;63%</div>
+          <div class="metric-label">improvement over<br>nearest-neighbor retrieval</div>
+        </div>
+        <div class="column is-3-desktop is-6-mobile metric-card">
+          <div class="metric-value">4</div>
+          <div class="metric-label">formal theoretical<br>propositions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- METHOD OVERVIEW                                               -->
+<!-- ============================================================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            BSD replaces Model-Based Diffusion's dynamics rollout with a kernel regression over stored trajectory data. At each denoising step <em>i</em>, given a noisy trajectory <em>Y<sub>i</sub></em>, BSD computes kernel weights over the dataset using three kernels:
+          </p>
+          <ul>
+            <li><strong>Diffusion kernel:</strong> Gaussian similarity between the noisy trajectory and stored controls, with bandwidth coupled to the diffusion noise level.</li>
+            <li><strong>Context kernel:</strong> Matches the current initial state to stored trajectory start states.</li>
+            <li><strong>Goal kernel:</strong> Scores alignment of stored trajectory endpoints with the desired goal.</li>
+          </ul>
+          <p>
+            The denoised trajectory is then a Nadaraya-Watson weighted average of stored trajectories. This creates a natural multi-scale structure: at high noise (early denoising), broad kernels average over diverse trajectories capturing global behavioral patterns; at low noise (late denoising), narrow kernels interpolate locally between nearby trajectories. A multi-sample selection mechanism with <em>K</em> = 20,000 candidates and reward-weighted softmax handles exploitation.
+          </p>
+          <p>
+            Safety shielding from Safe-MPD transfers directly: the shield operates on kernel-estimated states identically to dynamics-predicted ones. We prove this formally (Proposition 4: Safety Inheritance).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- DEMONSTRATIONS                                                -->
+<!-- ============================================================ -->
+<section class="section" style="background: #f5f5f5;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Demonstrations</h2>
+
+    <!-- Denoising Process -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Denoising Process</h3>
+        <div class="content has-text-justified">
+          <p>
+            BSD iteratively refines a noisy trajectory into a goal-reaching parking maneuver.
+            At early steps (high noise), kernel weights average broadly over the trajectory dataset;
+            at late steps (low noise), weights concentrate on nearby high-quality trajectories.
+          </p>
+        </div>
+        <div class="has-text-centered">
+          <img src="./static/videos/denoising_process.gif" alt="BSD denoising process animation"
+               style="max-width: 500px; width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.15);">
+          <p class="is-size-7 has-text-grey" style="margin-top: 0.5rem;">Bicycle system: 100 denoising steps, 1,000 stored trajectories</p>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <!-- Method Comparison -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Comparison: MBD vs. BSD-fix vs. NN</h3>
+        <div class="content has-text-justified">
+          <p>
+            Side-by-side comparison of planned trajectories on the Bicycle parking task.
+            MBD (model-based) and BSD-fix (ours, data-only) produce smooth, direct paths to the target space.
+            NN (nearest-neighbor, no diffusion) retrieves stored trajectories without refinement, yielding less directed paths.
+          </p>
+        </div>
+        <div class="has-text-centered">
+          <img src="./static/videos/method_comparison.gif" alt="Method comparison animation"
+               style="max-width: 750px; width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.15);">
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <!-- Multi-System -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Across Vehicle Systems</h3>
+        <div class="content has-text-justified">
+          <p>
+            BSD-fix generalizes across four vehicle systems of increasing state dimensionality
+            (3D&ndash;6D), producing smooth parking trajectories from data alone on each system.
+          </p>
+        </div>
+        <div class="has-text-centered">
+          <img src="./static/videos/multi_system.gif" alt="Multi-system BSD-fix trajectories"
+               style="max-width: 650px; width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.15);">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- RESULTS                                                       -->
+<!-- ============================================================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <!-- Main results: Nature-style dot plot -->
+    <div class="figure-row">
+      <div class="figure-item full-width">
+        <img src="./static/figures/fig1_nature.png" alt="Main results across four systems">
+        <div class="caption"><strong>Figure 1.</strong> Main results across four robotic systems of increasing state dimensionality (3D&ndash;6D). Each dot shows the mean reward; whiskers indicate bootstrapped 95% confidence intervals (10,000 resamples). Vertical dashed lines mark the MBD (model-based) reference. BSD-fix nearly matches MBD on all systems while substantially outperforming the no-diffusion baseline (NN).</div>
+      </div>
+    </div>
+
+    <!-- Reward distributions: full-width -->
+    <div class="figure-row">
+      <div class="figure-item full-width">
+        <img src="./static/figures/fig_distributions.png" alt="Per-trial reward distributions">
+        <div class="caption"><strong>Figure 2.</strong> Per-trial reward distributions across all four systems (50 trials each). Half-violins show kernel density estimates; individual dots represent single trials; diamonds mark the mean. BSD-fix (red) closely matches MBD (blue) in both location and spread, while NN (grey) exhibits substantially lower and more dispersed rewards.</div>
+      </div>
+    </div>
+
+    <!-- Scaling + Paired scatter: side by side -->
+    <div class="figure-row">
+      <div class="figure-item">
+        <img src="./static/figures/fig_scaling.png" alt="Dimensionality scaling">
+        <div class="caption"><strong>Figure 3.</strong> Performance relative to MBD (%) vs. state dimensionality. BSD-fix maintains near-parity through 5D; NN degrades steeply. The widening gap demonstrates that diffusion denoising becomes more valuable as complexity increases.</div>
+      </div>
+      <div class="figure-item">
+        <img src="./static/figures/fig_paired_scatter.png" alt="Paired trial scatter">
+        <div class="caption"><strong>Figure 4.</strong> Paired per-trial reward comparison (same random seeds). High Pearson correlations (r &ge; 0.70, up to 0.99) indicate BSD-fix tracks MBD faithfully on individual trials, not just in aggregate.</div>
+      </div>
+    </div>
+
+    <!-- Trajectories + Safety-time: side by side -->
+    <div class="figure-row">
+      <div class="figure-item">
+        <img src="./static/figures/fig6_trajectories.png" alt="Trajectory comparisons">
+        <div class="caption"><strong>Figure 5.</strong> Planned trajectories for Bicycle parking (5 trials each). BSD-fix produces smooth goal-reaching paths comparable to MBD. NN stops short of the goal.</div>
+      </div>
+      <div class="figure-item">
+        <img src="./static/figures/fig8_safety_time.png" alt="Safety vs planning time">
+        <div class="caption"><strong>Figure 6.</strong> Safety rate vs. planning time across all systems. BSD methods achieve comparable safety to MBD at moderate computational overhead.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- THEORETICAL CONTRIBUTIONS                                     -->
+<!-- ============================================================ -->
+<section class="section" style="background: #fafafa;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Theoretical Contributions</h2>
+        <div class="content has-text-justified">
+          <p>We establish four formal results for BSD's kernel-based score estimation:</p>
+          <ol>
+            <li><strong>Pointwise Consistency (Proposition 1):</strong> Under standard regularity conditions, BSD's Nadaraya-Watson estimate converges in probability to the true conditional expectation for <em>any</em> continuous dynamics&mdash;no linearity or parametric assumptions.</li>
+            <li><strong>MSE Bound (Proposition 2):</strong> Bias-variance decomposition with bias&sup2; = O(h<sup>4</sup>) and variance = O(1/(Nh<sup>d</sup>)). The optimal bandwidth h* = O(N<sup>-1/(d+4)</sup>) yields MSE rate O(N<sup>-4/(d+4)</sup>). Explains why adaptive bandwidth degrades performance: shrinking h at late steps inflates variance faster than it reduces bias.</li>
+            <li><strong>DeePC Equivalence (Proposition 3):</strong> For LTI systems with persistently exciting Hankel data and Gaussian kernels, BSD reduces to regularized DeePC with an entropic (KL) regularizer. Formalizes the connection between diffusion planning and behavioral systems theory.</li>
+            <li><strong>Safety Inheritance (Proposition 4):</strong> Safety is a shield property, not a planner property. BSD inherits any correct shield from model-based diffusion without modification.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- BibTeX                                                        -->
+<!-- ============================================================ -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{bsd2026,
+  title     = {Behavioral Score Diffusion: Model-Free Trajectory Planning
+               via Kernel-Based Score Estimation from Data},
+  author    = {Anonymous},
+  booktitle = {IEEE Conference on Decision and Control (CDC)},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FOOTER                                                        -->
+<!-- ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="#">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="#">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

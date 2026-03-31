@@ -1,0 +1,153 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.bsd {
+  font-variant: small-caps;
+}
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0;
+}
+
+/* Figure grid */
+.figure-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.figure-item {
+  text-align: center;
+  flex: 1 1 45%;
+  max-width: 48%;
+}
+
+.figure-item.full-width {
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
+.figure-item img {
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.figure-item .caption {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.5rem;
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* Key results highlight */
+.key-result {
+  background: #f5f5f5;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.key-result .columns {
+  margin: 0;
+}
+
+.metric-card {
+  text-align: center;
+  padding: 1rem;
+}
+
+.metric-card .metric-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: hsl(204, 86%, 53%);
+  font-family: 'Google Sans', sans-serif;
+}
+
+.metric-card .metric-label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.25rem;
+}
+
+@media screen and (max-width: 768px) {
+  .figure-item {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
