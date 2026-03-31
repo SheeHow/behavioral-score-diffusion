@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=42.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "behavioral-score-diffusion"
+version = "1.0.0"
+description = "Behavioral Score Diffusion: Model-Free Trajectory Planning via Kernel-Based Score Estimation from Data"
+authors = [
+    {name = "Shihao Li", email = "shihaoli01301@utexas.edu"},
+    {name = "Jiachen Li", email = "jiachenli@utexas.edu"},
+    {name = "Jiamin Xu", email = "jiaminxu@my.utexas.edu"},
+    {name = "Dongmei Chen", email = "dmchen@me.utexas.edu"},
+]
+dependencies = [
+    "gym",
+    "pandas",
+    "seaborn",
+    "matplotlib",
+    "imageio",
+    "control",
+    "tqdm",
+    "tyro",
+    "meshcat",
+    "sympy",
+    "gymnax",
+    "jax[cuda12]",
+    "distrax",
+    "gputil",
+    "jaxopt",
+    "flax",
+    "optuna",
+    "wandb",
+    "numpy",
+    "pyqt6>=6.9.1",
+]
+
+[tool.setuptools]
+packages = ["mbd"] 
