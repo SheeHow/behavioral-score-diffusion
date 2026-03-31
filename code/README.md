@@ -2,7 +2,11 @@
 
 Official implementation for **"Behavioral Score Diffusion: Model-Free Trajectory Planning via Kernel-Based Score Estimation from Data"** (CDC 2026).
 
-[[Project Page]](https://sheehow.github.io/behavioral-score-diffusion/) [[Paper]](#) [[Video]](#)
+[[Project Page]](https://sheehow.github.io/behavioral-score-diffusion/)
+
+<p align="center">
+  <img src="assets/teaser.png" width="100%">
+</p>
 
 ## Overview
 

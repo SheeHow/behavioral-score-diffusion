@@ -15,6 +15,7 @@ wandb/
 *.svg
 *.mp4
 *.gif
+!assets/*.png
 
 temp.sh
 wandb/
